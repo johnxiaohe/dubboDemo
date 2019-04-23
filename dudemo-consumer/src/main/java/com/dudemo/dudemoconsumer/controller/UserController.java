@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
     //将服务注册到不同的注册中心，从不同的注册中心取
-    @Reference(version="1.0.0",registry = "registry1")
+    //check关闭该服务的启时检查默认为true 如果服务不可用会抛出异常组织spring启动。
+    // 如果是false就会关闭该检查这样服务不存在时就不会启动不开了
+    @Reference(version="1.0.0",registry = "registry1",check =false)
     private UserInfoISV userInfoISV1;
-    @Reference(version="1.0.0",registry="registry2")
+    @Reference(version="1.0.0",registry="registry2",check =false)
     private UserInfoISV userInfoISV2;
 
     @GetMapping("/hello1/{name}")
