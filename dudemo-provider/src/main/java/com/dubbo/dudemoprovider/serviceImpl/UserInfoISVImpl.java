@@ -5,7 +5,8 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.stereotype.Component;
 
 @Component
-@Service(version="1.0.0")
+//将服务注册到两个不同的注册中心上
+@Service(version="1.0.0",registry = {"registry1","registry2"})
 public class UserInfoISVImpl implements UserInfoISV{
 
 

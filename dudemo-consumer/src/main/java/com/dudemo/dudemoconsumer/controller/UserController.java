@@ -11,14 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    //将服务注册到不同的注册中心，从不同的注册中心取
+    @Reference(version="1.0.0",registry = "registry1")
+    private UserInfoISV userInfoISV1;
+    @Reference(version="1.0.0",registry="registry2")
+    private UserInfoISV userInfoISV2;
 
-    @Reference(version="1.0.0")
-    private UserInfoISV userInfoISV;
-
-    @GetMapping("/hello/{name}")
+    @GetMapping("/hello1/{name}")
     public String sayHello(@PathVariable("name")String name)throws Exception{
-
-        return userInfoISV.sayHello(name);
+        System.out.println("调用了第一个地址");
+        return userInfoISV1.sayHello(name);
+    }
+    @GetMapping("/hello2/{name}")
+    public String sayHello2(@PathVariable("name")String name)throws Exception{
+        System.out.println("调用了第二个地址");
+        return userInfoISV2.sayHello(name);
     }
 
 
