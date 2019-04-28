@@ -6,9 +6,10 @@ import org.apache.dubbo.validation.MethodValidated;
 import org.springframework.stereotype.Component;
 
 @Component
-//将服务注册到两个不同的注册中心上
+//将服务注册到两个不同的注册中心上 registry
 //loadbalance 服务级别的 表示负载均衡策略
-@Service(version="1.0.0",registry = {"registry1","registry2"},loadbalance = "roundrobin")
+//protocol多协议暴露服务 注解模式
+@Service(version="1.0.0",registry = {"registry1","registry2"},loadbalance = "roundrobin",protocol = {"dubbo","rmi"})
 public class UserInfoISVImpl implements UserInfoISV{
 
 

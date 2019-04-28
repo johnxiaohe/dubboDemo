@@ -16,9 +16,12 @@ public class UserController {
     //check关闭该服务的启时检查默认为true 如果服务不可用会抛出异常组织spring启动。
     // 如果是false就会关闭该检查这样服务不存在时就不会启动不开了
     //retries 设置连接服务失败重连次数，默认为2
+    //group  设置调用时那个分组下的服务 设置为*表示任意
     @Reference(version="1.0.0",registry = "registry1",check =false,retries = 5)
     private UserInfoISV userInfoISV1;
-    @Reference(version="1.0.0",registry="registry2",check =false)
+    //loadBalance注解设置负载均衡 url服务器直连，免注册
+    //cache 单独指定结果缓存
+    @Reference(version="1.0.0",url = "47.100.58.201:20880",registry="registry2",check =false,loadbalance = "roundrobin")
     private UserInfoISV userInfoISV2;
 
     @GetMapping("/hello1/{name}")
@@ -31,6 +34,7 @@ public class UserController {
         System.out.println("调用了第二个地址");
         return userInfoISV2.sayHello(name);
     }
+
 
 
 }
